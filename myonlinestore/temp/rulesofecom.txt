@@ -1,0 +1,224 @@
+<?php
+if(isset($_POST["id"])&&isset($_POST["product_name"])&&isset($_POST["price"])&&isset($_POST["details"])&&isset($_POST["category"])&&isset($_POST["subcategory"])&&isset($_POST["date_added"]))
+{
+	$id = $_POST["id"];
+	$product_name = $_POST["product_name"];
+	$price = $_POST["price"];
+	$details = $_POST["details"];
+	$category = $_POST["category"];
+	$subcategory = $_POST["subcategory"];
+	$date_added = $_POST["date_added"];
+	
+	if(!empty($id)&&!empty($product_name)&&!empty($price)&&!empty($details)&&!empty($category)&&!empty($subcategory)&&!empty($date_added))
+	{
+		$query = "SELECT product_name FROM products WHERE product_name = '$product_name'";
+			$query_run = mysql_query($query);
+			
+			if(mysql_num_rows($query_run)==1)
+			{
+				echo 'The product_name '.$product_name. ' already exists.'; 
+			}
+			else
+			{
+				$query = "INSERT INTO products VALUES('','".mysql_real_escape_string($product_name)."','".mysql_real_escape_string($price)."','".mysql_real_escape_string($details)."','".mysql_real_escape_string($category)."','".mysql_real_escape_string($subcategory)."','".mysql_real_escape_string($date_added)."')";
+				if($query_run = mysql_query($query))
+				{
+					header('Location:  ');
+				}
+				else
+				{
+					echo 'Sorry WE Unable to Add items @ this Time';
+				}
+			}
+	}
+	else 
+	{
+	echo 'Plaese Fill All Fields!';
+	}
+}
+?>
+
+
+
+<?php 
+// Run select query to get my latest updates... 
+require '../storescripts/connect_to_mysql.php';
+$dynamicList = "";
+$sql = mysql_query("SELECT * FROM products ORDER BY date_added DESC LIMIT 6");
+$productCount = mysql_num_rows($sql); // count the output amount
+if ($productCount > 0) {
+	while($row = mysql_fetch_array($sql)){ 
+             $id = $row["id"];
+			 $product_name = $row["product_name"];
+			 $price = $row["price"];
+			 $date_added = strftime("%b %d, %Y", strtotime($row["date_added"]));
+			 $dynamicList .= '<table width="100%" border="1" cellspacing="0" cellpadding=6">
+      <tr>
+        <td width="17%" valign="top"><a href="product.php?id = ' . $id . '"><img style = "border:#666 1px solid;" src="../inventory_images/' . $id . '.jpg"  alt="' .$product_name. '" width="140" height="139" /></a></td>
+        <td width="83%" valign="top">' . $product_name . '<br/>
+          $' . $price . '<br/>
+          <a href="product.php?id = ' . $id . '">View Product Details</a>
+		  </td>
+      </tr>
+    </table>';
+    }
+} else {
+	$dynamicList = "Sorry! We no Products!!!";
+}
+mysql_close();
+?>
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30%" valign = "top"><p>some scrap </p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p></td>
+    <td width="35%" valign="top"><p>Newest Item Added to the Store</p>
+    <p><?php echo $dynamicList; ?></p>
+   <!-- <table width="100%" border="1" cellspacing="0" cellpadding=6">
+      <tr>
+        <td width="23%"><a href="product.php?"><img style = "border:#666 1px solid;" src="inventory_images/4.jpg" width="140" height="139" alt="$dynamicTitle" /></a></td>
+        <td width="77%" valign="top"><p>Product Title</p>
+          <p>Product Price</p>
+          <p><a href="product.php?">View Product</a></p></td>
+      </tr>
+    </table>--><p>&nbsp;</p>
+    </td>
+    <td width="30%"><p>More Crap</p>
+      </td>
+  </tr>
+</table>
+
+
+E-Commerce Website in PHP & MySQLi
+
+E-Commerce is a type of online selling/purchasing system or Online Web 
+
+Store for shopping, which has never been easier to create in PHP & 
+
+MySQLi from scratch. Especially for those who are new to PHP & MySQLi. 
+
+But I have tried my best to create this whole system in PHP & MySQLi 
+
+from scratch, Many features are included in the course such as creating 
+
+the website layout, shopping cart, customer user interface, Admin Panel 
+
+and Paypal integration etc.
+
+Chapter 1: Introduction & Setting up the Project
+Course Promo!
+Introduction to the course
+Installing the tools
+The structure of the ecommerce
+Creating the project folders
+
+Chapter 2: Creating the Layout & adding content
+Creating the index page
+Creating the website layout
+Creating the website layout 
+Creating the menu bar
+Adding the search box
+Adding static cats & brands
+creating the tables for products, cats & brands
+Adding Dynamic Categories & Brands
+Creating insert_product page
+Creating insert_product page
+Inserting products to table
+Inserting the products into table
+Displaying products on main website
+Creating the shopping cart bar
+Creating the details page
+Getting Category Products
+Getting Brands products
+Creating all_products page
+Creating custom search engine
+
+Chapter 3: Creating the Shopping Cart
+Creating the Cart
+Displaying Total_items in Cart
+Displaying Total Price in the cart
+Creating the main cart page
+Updating the Cart
+Updating the quantity in the cart
+Creating the checkout page
+
+Chapter 4: Customer Registration & Login-Logout
+Customer Registration
+Customer Registration
+Customer Registration & Payment Options
+Customer Login-Logout
+Customer Login Script
+Fixing small things
+
+Chapter 5: Customer Account Interface
+Creating the customer account
+Creating the Customer Account
+Customer Account - Adding Content
+Customer Account - Editing Account
+Customer Account - Editing Account
+Customer Account - Updating the account
+Customer Account - Change Password
+Customer Account - Updating Password
+Customer Account - Deleting Account
+
+Chapter 6: Creating the Admin Panel
+Admin Panel - Creating the Layout
+Admin Panel - Adding Links & Insert Products
+Admin Panel - View Products
+Admin Panel - Editing Products
+Admin Panel - Updating Products
+Admin Panel - Deleting Products
+Admin Panel - Insert New Category
+Admin Panel - View Categories
+Admin Panel - Edit Category
+Admin Panel - Insert New Brands
+Admin Panel - View/Edit/Delete brands
+Admin Panel - View Customers
+Admin Panel - Login System
+Admin Panel - Login System
+Admin Panel - Logout System
+
+Chapter 7: Paypal Integration
+Paypal Online Payment Integratoin
+Paypal Online Payment Integratoin
+Paypal Online Payment Integratoin
+Creating Paypal_success & Paypal_cancel Pages
+
+Chapter 8: Uploading the E-Commerce to Online Server
+Uploading the Project to Online server
+Uploading the project to online server
+Uploading the project to online server
+
+Chapter 9: Receiving Payments & Storing Orders
+Paypal - Processing the Payments
+Paypal - Receiving the Payments
+Paypal - Receiving the Payments
+Inserting Orders & Payments into Tables
+Small Fixes!
+
+Chapter 10: Displaying Orders & Payments
+Displaying Orders in Customer Account
+Displaying Orders in Customer Account
+Displaying Orders in Admin Panel
+Displaying Orders in Admin Panel
+Displaying Payments in Admin Panel & Updating Orders
+
+Chapter 11: PHP Mail Function
+Sending Emails to the Customers
+Sending Emails to the Customers
+Final Summary!
+Category
+People & Blogs
+License
+Standard YouTube License
+
+
+
+
+https://www.youtube.com/all_comments?v=8dL0ntjl0fI&lc=sthufTa4JjTGYwe1T--YQXqmTOQ_NWvb7UPC3QV2yP4
